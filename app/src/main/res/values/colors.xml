@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_blue">#045CB1</color>
+    <color name="app_gray">#4d4e4e</color>
+    <color name="header_bg">#ffffff</color>
+    <color name="child_l1_bg">#ececec</color>
+    <color name="child_l2_bg">#cdd0d1</color>
+    <color name="child_l1_strip">#658eb5</color>
+    <color name="child_l2_strip">#b5b6b6</color>
+</resources>
