@@ -67,9 +67,40 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                             item.invisibleChildren = new ArrayList<Item>();
                             int count = 0;
                             int pos = data.indexOf(itemController.refferalItem);
+                            Item childItem = null;
+                            ArrayList<Item> listInvisibleChild = null;
                             while (data.size() > pos + 1 && (data.get(pos + 1).type == CHILD_L1 || data.get(pos + 1).type == CHILD_L2) ) {
-                                item.invisibleChildren.add(data.remove(pos + 1));
+
+                                if(data.get(pos + 1).type == CHILD_L1){
+                                    if(childItem!=null){
+                                        if(listInvisibleChild != null){
+                                            childItem.invisibleChildren = new ArrayList<Item>(listInvisibleChild);
+                                            listInvisibleChild = null;
+                                        }
+                                    }
+                                    childItem = data.get(pos+1);
+
+                                    if(childItem.invisibleChildren == null){
+                                        childItem.invisibleChildren = new ArrayList<Item>();
+                                    }
+
+                                    item.invisibleChildren.add(data.remove(pos + 1));
+                                }else if(data.get(pos + 1).type == CHILD_L2){
+
+                                    if(childItem.invisibleChildren != null){
+                                        childItem.invisibleChildren.add(data.remove(pos + 1));
+                                    }else{
+                                        if(listInvisibleChild == null){
+                                            listInvisibleChild = new ArrayList<Item>();
+                                        }
+                                        listInvisibleChild.add(data.remove(pos + 1));
+
+                                    }
+                                }
                                 count++;
+
+                                /*item.invisibleChildren.add(data.remove(pos + 1));
+                                count++;*/
                             }
                             notifyItemRangeRemoved(pos + 1, count);
                             itemController.btn_expand_toggle.setImageResource(R.drawable.circle_plus);
