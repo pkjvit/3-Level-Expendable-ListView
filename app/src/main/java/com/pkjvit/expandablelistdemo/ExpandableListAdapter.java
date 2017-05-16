@@ -1,6 +1,7 @@
 package com.pkjvit.expandablelistdemo;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +21,12 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public static final int CHILD_L1 = 1;
     public static final int CHILD_L2 = 2;
 
-    private List<Item> data;
+    private List<Item>      data;
+    private RecyclerView    mRecyclerView;
 
-    public ExpandableListAdapter(List<Item> data) {
+    public ExpandableListAdapter(RecyclerView recyclerView, List<Item> data) {
         this.data = data;
+        mRecyclerView = recyclerView;
     }
 
     @Override
@@ -112,6 +115,10 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 index++;
                             }
                             notifyItemRangeInserted(pos + 1, index - pos - 1);
+                            int lastVisiblePosition = ((LinearLayoutManager)mRecyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                            if(lastVisiblePosition-1 <= pos){
+                                mRecyclerView.scrollToPosition(index-1);
+                            }
                             itemController.btn_expand_toggle.setImageResource(R.drawable.circle_minus);
                             item.invisibleChildren = null;
                         }
@@ -149,6 +156,10 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 index++;
                             }
                             notifyItemRangeInserted(pos + 1, index - pos - 1);
+                            int lastVisiblePosition = ((LinearLayoutManager)mRecyclerView.getLayoutManager()).findLastVisibleItemPosition();
+                            if(lastVisiblePosition-1 <= pos){
+                                mRecyclerView.scrollToPosition(index-1);
+                            }
                             childItemController.btn_expand_toggle.setImageResource(R.drawable.ic_arrow_drop_up_black_24dp);
                             item.invisibleChildren = null;
                         }

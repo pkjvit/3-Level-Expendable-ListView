@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         data.add(places);*/
 
-        recyclerview.setAdapter(new ExpandableListAdapter(makeAllInvisible(data)));
+        recyclerview.setAdapter(new ExpandableListAdapter(recyclerview,makeAllInvisible(data)));
     }
 
     public List<ExpandableListAdapter.Item> makeAllInvisible(List<ExpandableListAdapter.Item> data){
